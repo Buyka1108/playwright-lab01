@@ -7,7 +7,9 @@ import { test, expect } from '@playwright/test';
 test('Амжилттай нэвтрэх тест', async ({ page }) => {
 
   // SauceDemo веб сайтыг нээнэ
-  await page.goto('https://www.saucedemo.com');
+  await page.goto('https://www.saucedemo.com', {
+  waitUntil: 'domcontentloaded'
+});
 
   // Username оруулна
   await page.getByPlaceholder('Username').fill('standard_user');
@@ -38,7 +40,9 @@ test('Амжилттай нэвтрэх тест', async ({ page }) => {
 test('Амжилтгүй нэвтрэх тест', async ({ page }) => {
 
   // SauceDemo сайтыг нээнэ
-  await page.goto('https://www.saucedemo.com');
+  await page.goto('https://www.saucedemo.com', {
+  waitUntil: 'domcontentloaded'
+});
 
   // Зөв username оруулна
   await page.getByPlaceholder('Username').fill('standard_user');
@@ -63,7 +67,9 @@ test('Амжилтгүй нэвтрэх тест', async ({ page }) => {
 test('Барааг сагсанд нэмэх тест', async ({ page }) => {
 
   // SauceDemo сайтыг нээнэ
-  await page.goto('https://www.saucedemo.com');
+  await page.goto('https://www.saucedemo.com', {
+  waitUntil: 'domcontentloaded'
+});
 
   // Нэвтрэх
   await page.getByPlaceholder('Username').fill('standard_user');
