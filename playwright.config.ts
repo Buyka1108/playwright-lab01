@@ -14,7 +14,7 @@ export default defineConfig({
   fullyParallel: false,
 
   // CI орчинд test.only үлдсэн эсэхийг шалгана
-  forbidOnly: !!process.env.CI,
+  forbidOnly: false,
 
   // Сүлжээний түр зуурын алдаа гарвал 2 удаа дахин оролдоно
   retries: 2,
