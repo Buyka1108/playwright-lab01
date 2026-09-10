@@ -94,12 +94,12 @@ test('Барааг сагсанд нэмэх тест', async ({ page }) => {
   // XPath болон ID selector ашиглахын оронд хэрэглэгчид харагдах
   // button role-ийг ашиглаж байна.
   await page
-    .getByRole('button', { name: 'Add to cart' })
-    .first()
+    .getByTestId('add-to-cart-sauce-labs-backpack')
     .click();
 
-  // Сагсны badge 1 болсон эсэхийг шалгана.
-  await expect(page.locator('.shopping_cart_badge')).toHaveText('1');
+  await expect(
+    page.getByTestId('shopping-cart-badge')
+  ).toHaveText('1');
 
   // Нэвтэрсэн тестийг Logout үйлдлээр төгсгөнө.
   await page.getByRole('button', { name: 'Open Menu' }).click();

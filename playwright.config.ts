@@ -1,44 +1,44 @@
 import { defineConfig, devices } from '@playwright/test';
 
-/**
- * Playwright test configuration
- */
 export default defineConfig({
-  // Нэг тестийн хамгийн их ажиллах хугацаа
   timeout: 90000,
-
-  // Test файлууд байрлах хавтас
   testDir: './tests',
 
-  // Тестүүдийг зэрэг ажиллуулахгүй
-  fullyParallel: false,
+  fullyParallel: true,
 
-  // CI орчинд test.only үлдсэн эсэхийг шалгана
-  forbidOnly: false,
+  // CI орчинд test.only үлдсэн байвал build-ийг унагаана
+  forbidOnly: !!process.env.CI,
 
-  // Сүлжээний түр зуурын алдаа гарвал 2 удаа дахин оролдоно
-  retries: 2,
+  // Зөвхөн CI дээр failed тестийг дахин оролдоно
+  retries: process.env.CI ? 2 : 0,
 
-  // Нэг worker ашиглаж тестүүдийг дарааллаар ажиллуулна
-  workers: 1,
+  // CI дээр тогтвортой ажиллуулахын тулд 1 worker ашиглана
+  workers: process.env.CI ? 1 : undefined,
 
-  // HTML report үүсгэнэ
   reporter: 'html',
 
-  // Бүх тестэд ашиглах ерөнхий тохиргоо
   use: {
-    // Retry хийх үед Trace хадгална
     trace: 'on-first-retry',
 
-    // Windows HTTPS certificate шалгалтын асуудлыг тойрч ажиллана
+    // Танай Windows HTTPS certificate асуудлыг тойрч ажиллуулна
     ignoreHTTPSErrors: true,
+
+    // SauceDemo data-testid биш data-test ашигладаг
+    testIdAttribute: 'data-test',
   },
 
-  // SauceDemo тестийг Chromium browser дээр ажиллуулна
   projects: [
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
+    },
+    {
+      name: 'firefox',
+      use: { ...devices['Desktop Firefox'] },
+    },
+    {
+      name: 'webkit',
+      use: { ...devices['Desktop Safari'] },
     },
   ],
 });
